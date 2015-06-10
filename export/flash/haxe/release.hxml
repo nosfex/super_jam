@@ -16,5 +16,5 @@
 -D web
 -swf-version 11.8
 -swf export/flash/bin/FlxProject.swf
--swf-header 640:480:60:000000
+-swf-header 800:480:60:000000
 -cp export/flash/haxe

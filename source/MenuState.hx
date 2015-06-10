@@ -27,6 +27,7 @@ class MenuState extends FlxState
 		add(introText);
 		
 		playBtn = new FlxButton(FlxG.width * 0.5, FlxG.height * 0.5, onPlay);
+		playBtn.x -= playBtn.width * 0.5;
 		add(playBtn);
 	}
 	

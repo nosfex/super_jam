@@ -52,6 +52,16 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/fonts/arial.ttf", AssetType.FONT);
 		className.set ("assets/fonts/nokiafc22.ttf", __ASSET__assets_fonts_nokiafc22_ttf);
 		type.set ("assets/fonts/nokiafc22.ttf", AssetType.FONT);
+		className.set ("assets/images/bkg/bg_mountain_0.png", __ASSET__assets_images_bkg_bg_mountain_0_png);
+		type.set ("assets/images/bkg/bg_mountain_0.png", AssetType.IMAGE);
+		className.set ("assets/images/bkg/fg_sand_0.png", __ASSET__assets_images_bkg_fg_sand_0_png);
+		type.set ("assets/images/bkg/fg_sand_0.png", AssetType.IMAGE);
+		className.set ("assets/images/bkg/scr_street.jpg", __ASSET__assets_images_bkg_scr_street_jpg);
+		type.set ("assets/images/bkg/scr_street.jpg", AssetType.IMAGE);
+		className.set ("assets/images/bkg/scr_street.png", __ASSET__assets_images_bkg_scr_street_png);
+		type.set ("assets/images/bkg/scr_street.png", AssetType.IMAGE);
+		className.set ("assets/images/bkg/ul_clouds_0.png", __ASSET__assets_images_bkg_ul_clouds_0_png);
+		type.set ("assets/images/bkg/ul_clouds_0.png", AssetType.IMAGE);
 		className.set ("assets/images/debugger/buttons/arrowLeft.png", __ASSET__assets_images_debugger_buttons_arrowleft_png);
 		type.set ("assets/images/debugger/buttons/arrowLeft.png", AssetType.IMAGE);
 		className.set ("assets/images/debugger/buttons/arrowRight.png", __ASSET__assets_images_debugger_buttons_arrowright_png);
@@ -102,10 +112,18 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/logo/HaxeFlixel.svg", AssetType.TEXT);
 		className.set ("assets/images/logo/logo.png", __ASSET__assets_images_logo_logo_png);
 		type.set ("assets/images/logo/logo.png", AssetType.IMAGE);
+		className.set ("assets/images/particles/p_blood_0.png", __ASSET__assets_images_particles_p_blood_0_png);
+		type.set ("assets/images/particles/p_blood_0.png", AssetType.IMAGE);
+		className.set ("assets/images/particles/p_gore_0.png", __ASSET__assets_images_particles_p_gore_0_png);
+		type.set ("assets/images/particles/p_gore_0.png", AssetType.IMAGE);
 		className.set ("assets/images/preloader/corners.png", __ASSET__assets_images_preloader_corners_png);
 		type.set ("assets/images/preloader/corners.png", AssetType.IMAGE);
 		className.set ("assets/images/preloader/light.png", __ASSET__assets_images_preloader_light_png);
 		type.set ("assets/images/preloader/light.png", AssetType.IMAGE);
+		className.set ("assets/images/random/left_chainsaw.png", __ASSET__assets_images_random_left_chainsaw_png);
+		type.set ("assets/images/random/left_chainsaw.png", AssetType.IMAGE);
+		className.set ("assets/images/random/left_chainsaw_mod.png", __ASSET__assets_images_random_left_chainsaw_mod_png);
+		type.set ("assets/images/random/left_chainsaw_mod.png", AssetType.IMAGE);
 		className.set ("assets/images/tile/autotiles.png", __ASSET__assets_images_tile_autotiles_png);
 		type.set ("assets/images/tile/autotiles.png", AssetType.IMAGE);
 		className.set ("assets/images/tile/autotiles_alt.png", __ASSET__assets_images_tile_autotiles_alt_png);
@@ -168,6 +186,21 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "assets/fonts/nokiafc22.ttf";
 		className.set (id, __ASSET__assets_fonts_nokiafc22_ttf);
 		type.set (id, AssetType.FONT);
+		id = "assets/images/bkg/bg_mountain_0.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/bkg/fg_sand_0.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/bkg/scr_street.jpg";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/bkg/scr_street.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/bkg/ul_clouds_0.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "assets/images/debugger/buttons/arrowLeft.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
@@ -243,10 +276,22 @@ class DefaultAssetLibrary extends AssetLibrary {
 		id = "assets/images/logo/logo.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
+		id = "assets/images/particles/p_blood_0.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/particles/p_gore_0.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
 		id = "assets/images/preloader/corners.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/preloader/light.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/random/left_chainsaw.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/random/left_chainsaw_mod.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/tile/autotiles.png";
@@ -338,6 +383,21 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/fonts/nokiafc22.ttf", __ASSET__assets_fonts_nokiafc22_ttf);
 		type.set ("assets/fonts/nokiafc22.ttf", AssetType.FONT);
 		
+		className.set ("assets/images/bkg/bg_mountain_0.png", __ASSET__assets_images_bkg_bg_mountain_0_png);
+		type.set ("assets/images/bkg/bg_mountain_0.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/bkg/fg_sand_0.png", __ASSET__assets_images_bkg_fg_sand_0_png);
+		type.set ("assets/images/bkg/fg_sand_0.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/bkg/scr_street.jpg", __ASSET__assets_images_bkg_scr_street_jpg);
+		type.set ("assets/images/bkg/scr_street.jpg", AssetType.IMAGE);
+		
+		className.set ("assets/images/bkg/scr_street.png", __ASSET__assets_images_bkg_scr_street_png);
+		type.set ("assets/images/bkg/scr_street.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/bkg/ul_clouds_0.png", __ASSET__assets_images_bkg_ul_clouds_0_png);
+		type.set ("assets/images/bkg/ul_clouds_0.png", AssetType.IMAGE);
+		
 		className.set ("assets/images/debugger/buttons/arrowLeft.png", __ASSET__assets_images_debugger_buttons_arrowleft_png);
 		type.set ("assets/images/debugger/buttons/arrowLeft.png", AssetType.IMAGE);
 		
@@ -413,11 +473,23 @@ class DefaultAssetLibrary extends AssetLibrary {
 		className.set ("assets/images/logo/logo.png", __ASSET__assets_images_logo_logo_png);
 		type.set ("assets/images/logo/logo.png", AssetType.IMAGE);
 		
+		className.set ("assets/images/particles/p_blood_0.png", __ASSET__assets_images_particles_p_blood_0_png);
+		type.set ("assets/images/particles/p_blood_0.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/particles/p_gore_0.png", __ASSET__assets_images_particles_p_gore_0_png);
+		type.set ("assets/images/particles/p_gore_0.png", AssetType.IMAGE);
+		
 		className.set ("assets/images/preloader/corners.png", __ASSET__assets_images_preloader_corners_png);
 		type.set ("assets/images/preloader/corners.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/preloader/light.png", __ASSET__assets_images_preloader_light_png);
 		type.set ("assets/images/preloader/light.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/random/left_chainsaw.png", __ASSET__assets_images_random_left_chainsaw_png);
+		type.set ("assets/images/random/left_chainsaw.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/random/left_chainsaw_mod.png", __ASSET__assets_images_random_left_chainsaw_mod_png);
+		type.set ("assets/images/random/left_chainsaw_mod.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/tile/autotiles.png", __ASSET__assets_images_tile_autotiles_png);
 		type.set ("assets/images/tile/autotiles.png", AssetType.IMAGE);
@@ -1110,6 +1182,11 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep class __ASSET__assets_data_data_goes_here_txt extends openfl.utils.ByteArray { }
 @:keep class __ASSET__assets_fonts_arial_ttf extends openfl.text.Font { }
 @:keep class __ASSET__assets_fonts_nokiafc22_ttf extends openfl.text.Font { }
+@:keep class __ASSET__assets_images_bkg_bg_mountain_0_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_bkg_fg_sand_0_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_bkg_scr_street_jpg extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_bkg_scr_street_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_bkg_ul_clouds_0_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_debugger_buttons_arrowleft_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_debugger_buttons_arrowright_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_debugger_buttons_bitmaplog_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1135,8 +1212,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep class __ASSET__assets_images_logo_default_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_logo_haxeflixel_svg extends openfl.utils.ByteArray { }
 @:keep class __ASSET__assets_images_logo_logo_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_particles_p_blood_0_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_particles_p_gore_0_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_preloader_corners_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_preloader_light_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_random_left_chainsaw_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_random_left_chainsaw_mod_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_tile_autotiles_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_tile_autotiles_alt_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_ui_analog_base_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1221,12 +1302,26 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 
 
+
+
+
+
+
+
+
+
+
 #elseif (windows || mac || linux)
 
 
 @:file("assets/data/data-goes-here.txt") class __ASSET__assets_data_data_goes_here_txt extends flash.utils.ByteArray {}
 @:font("assets/fonts/arial.ttf") class __ASSET__assets_fonts_arial_ttf extends flash.text.Font {}
 @:font("assets/fonts/nokiafc22.ttf") class __ASSET__assets_fonts_nokiafc22_ttf extends flash.text.Font {}
+@:bitmap("assets/images/bkg/bg_mountain_0.png") class __ASSET__assets_images_bkg_bg_mountain_0_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/bkg/fg_sand_0.png") class __ASSET__assets_images_bkg_fg_sand_0_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/bkg/scr_street.jpg") class __ASSET__assets_images_bkg_scr_street_jpg extends flash.display.BitmapData {}
+@:bitmap("assets/images/bkg/scr_street.png") class __ASSET__assets_images_bkg_scr_street_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/bkg/ul_clouds_0.png") class __ASSET__assets_images_bkg_ul_clouds_0_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/debugger/buttons/arrowLeft.png") class __ASSET__assets_images_debugger_buttons_arrowleft_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/debugger/buttons/arrowRight.png") class __ASSET__assets_images_debugger_buttons_arrowright_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/debugger/buttons/bitmapLog.png") class __ASSET__assets_images_debugger_buttons_bitmaplog_png extends flash.display.BitmapData {}
@@ -1252,8 +1347,12 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:bitmap("assets/images/logo/default.png") class __ASSET__assets_images_logo_default_png extends flash.display.BitmapData {}
 @:file("assets/images/logo/HaxeFlixel.svg") class __ASSET__assets_images_logo_haxeflixel_svg extends flash.utils.ByteArray {}
 @:bitmap("assets/images/logo/logo.png") class __ASSET__assets_images_logo_logo_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/particles/p_blood_0.png") class __ASSET__assets_images_particles_p_blood_0_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/particles/p_gore_0.png") class __ASSET__assets_images_particles_p_gore_0_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/preloader/corners.png") class __ASSET__assets_images_preloader_corners_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/preloader/light.png") class __ASSET__assets_images_preloader_light_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/random/left_chainsaw.png") class __ASSET__assets_images_random_left_chainsaw_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/random/left_chainsaw_mod.png") class __ASSET__assets_images_random_left_chainsaw_mod_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/tile/autotiles.png") class __ASSET__assets_images_tile_autotiles_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/tile/autotiles_alt.png") class __ASSET__assets_images_tile_autotiles_alt_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/ui/analog/base.png") class __ASSET__assets_images_ui_analog_base_png extends flash.display.BitmapData {}
