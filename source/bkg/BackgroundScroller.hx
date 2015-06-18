@@ -3,6 +3,7 @@ package bkg;
 import flixel.group.FlxGroup;
 import flixel.FlxSprite;
 import flixel.FlxG;
+import flixel.util.FlxPoint;
 /**
  * ...
  * @author Gerardo Heidel
@@ -55,6 +56,7 @@ class BackgroundScroller extends FlxGroup
 			var sprite :FlxSprite = i <= 0 ? new FlxSprite(i, 0, assets[i]) : new FlxSprite(i * temp[i - 1].width, 0, assets[i]);
 			temp.push(sprite);
 			add(sprite);
+			sprite.scrollFactor.set(0, 0);
 		}
 		
 		if (bscroller_foreground == scrollerType)
@@ -83,7 +85,7 @@ class BackgroundScroller extends FlxGroup
 	{
 	//	return;
 		
-		var speedX :Float = FlxG.camera.scroll.x < 0 ? 0 : FlxG.camera.scroll.x;
+		var speedX :Float = FlxG.player.velocity.x < 0 ? 0 : FlxG.player.velocity.x ;
 		if(_foregroundContainer.length != 0)
 		{
 			

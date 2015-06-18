@@ -1,8 +1,12 @@
 package enemy;
 
 import flash.events.Event;
+import flash.geom.Point;
 import flixel.group.FlxGroup;
 import flixel.FlxG;
+import flixel.util.FlxMath;
+import flixel.FlxSprite;
+import flixel.util.FlxPoint;
 /**
  * ...
  * @author Gerardo Heidel
@@ -12,6 +16,7 @@ class EnemyController extends FlxGroup
 	
 	public static var v_formation : Int = 0;
 	public var particleGroup(default, default) :FlxGroup = new FlxGroup();
+	private var _chaserSet :Bool = false;
 	public function new() 
 	{
 		super();
@@ -36,7 +41,6 @@ class EnemyController extends FlxGroup
 	public override function update() :Void
 	{
 		super.update();
-	//	FlxG.log.add("EC loop");
 		for (i in 0 ... members.length)
 		{
 			if (members[i] != null)
@@ -45,11 +49,24 @@ class EnemyController extends FlxGroup
 				{
 					remove(members[i], true);
 				}
+				
+				
+			}
+			
+			if (!_chaserSet)
+			{
+				var m :Enemy =cast( members[i], Enemy);
+				if (FlxMath.distanceBetween(m, FlxG.player) < 300)
+				{
+					_chaserSet = true;
+					m.forceFollow = true;
+				}
 			}
 		}	
 		
 		if (members.length == 0)
 		{
+			_chaserSet = false;
 			spawnFormation(v_formation);
 		}
 		
@@ -61,13 +78,11 @@ class EnemyController extends FlxGroup
 		{
 			case v_formation:
 				for (i in 0 ... 4)
-				{
-					
+				{			
 					var xMod :Float = Math.max( Math.min((i % 3), 0.05), 0);
-					FlxG.log.add("XMOD: " + xMod);
-					spawnEnemy(FlxG.width * (1.2 + xMod), FlxG.height * (.65 + i * .08));
+					spawnEnemy(FlxG.player.x + FlxG.width * (1.2 + xMod), FlxG.height * (.65 + i * .08));
 				}
-			//	break;
+			
 		}
 	}
 	

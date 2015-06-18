@@ -26,14 +26,15 @@ class PlayState extends FlxState
 	private var _scroller :BackgroundScroller;
 	private var _player :Player;
 	private var _enemyController :EnemyController;
-	
+	private var _jamTime :FlxText;
+	private var _jamTimer :Float = 60;
+	private var _clockStage :Int  = 2;
 	private var _mainCamera :FlxCamera;
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
 	override public function create():Void
 	{
-		super.create();
 		
 		_player = new Player(20, FlxG.height * 0.8, AssetPaths.left_chainsaw__png);
 		
@@ -48,14 +49,16 @@ class PlayState extends FlxState
 		add(_scroller);
 		add(_player);
 		
+		
 		_enemyController = new EnemyController();
 		add(_enemyController);
 		add(_enemyController.particleGroup);
-		_mainCamera = new FlxCamera(-0, 0 , FlxG.width , FlxG.height);
-		FlxG.cameras.add(_mainCamera);
+		_mainCamera = new FlxCamera(-0, 0 , FlxG.width << 2, FlxG.height);
+		super.create();
 		
-		FlxG.camera.setBounds(0, 0, FlxG.width * 2, FlxG.height);
-		FlxG.camera.follow(_player);
+		_jamTime = new FlxText(FlxG.width >> 1, FlxG.height * 0.03, 200, "CULO", 10);
+		_jamTime.x -= cast(_jamTime.width, Float) * 0.5;
+		add(_jamTime);
 	}
 	
 	/**
@@ -80,6 +83,27 @@ class PlayState extends FlxState
 		{
 			_mainCamera.shake(0.05);
 		}
+		
+		
+		_jamTime.text = "JAM TIME: " + _clockStage + ":" + Math.round(_jamTimer);
+		if (_jamTimer == 60 && _clockStage == 2)
+		{
+			_jamTime.text = "JAM TIME: 2:00";
+		}
+		_jamTimer -= FlxG.elapsed;
+		if (_clockStage == 2 && _jamTimer < 60)
+			_clockStage = 1;
+			
+		if (_jamTimer <= 0 )
+			
+		{
+			_clockStage = 0;
+			_jamTimer = 60;
+		}
+		
+		
+	//	FlxG.camera.focusOn(FlxPoint.get(_player.x, _player.y));
+	//	FlxG.camera.setBounds(0, 0, FlxG.width + _player.x * .5 , FlxG.height);
 	}	
 	
 	private function onCollide(obj1 :FlxObject, obj2 :FlxObject) :Void

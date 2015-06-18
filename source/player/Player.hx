@@ -29,7 +29,7 @@ class Player extends FlxSprite implements ICollidable
 	public function init() :Void
 	{
 		health = 3;
-		maxVelocity = new FlxPoint (50, 50);
+		maxVelocity = new FlxPoint (250, 250);
 		//this.makeGraphic(20, 20);
 		scale = new FlxPoint(3, 3);		
 	}
@@ -64,7 +64,7 @@ class Player extends FlxSprite implements ICollidable
 		
 		if (FlxG.keys.pressed.RIGHT)
 		{
-			acceleration.x += 0.25;
+			acceleration.x += 1.25;
 		}
 		else
 		{
@@ -84,20 +84,20 @@ class Player extends FlxSprite implements ICollidable
 				FlxG.log.add("SHIET");
 				_starPowerCurrent = 0;
 				_starPowerEnabled = false;
-				maxVelocity = new FlxPoint(50, 50);
+				maxVelocity = new FlxPoint(250, 250);
 			}
 			
 			if (_starPowerEnabled)
 			{
-				maxVelocity = new FlxPoint(200, 50);
+				maxVelocity = new FlxPoint(600, 250);
 				// GH: running with the devil
-				velocity.x = 200;
+				velocity.x = 600;
 				
 			}
 		}
 		else
 		{
-			maxVelocity = new FlxPoint(50, 50);
+			maxVelocity = new FlxPoint(250, 250);
 		}
 		
 		if (x <= FlxG.width * 0.03)
@@ -105,9 +105,9 @@ class Player extends FlxSprite implements ICollidable
 			x = FlxG.width * 0.03;
 		}
 		
-		if (x >= FlxG.width * 0.85)
+		if (x >= FlxG.width * 0.5)
 		{
-			x = FlxG.width * 0.85;
+			x = FlxG.width * 0.5;
 		}
 		
 		_distance += velocity.x * FlxG.elapsed;
