@@ -32,16 +32,17 @@ class Enemy extends FlxSprite implements ICollidable
 	{
 		super(X, Y, SimpleGraphic);			
 		scale = new FlxPoint(3, 3);
-		maxVelocity = new FlxPoint(350, 350);
+		maxVelocity = new FlxPoint(150, 150);
 		
 		
-		_xMod = Math.random() * -100 -50;
+		_xMod = Math.random() * 100 + 50;
 		
 		goreEmitter = new FlxEmitter();
 		
 		goreEmitter.makeParticles(AssetPaths.p_gore_0__png, 15, 16, true);
 		
 		_angleMoveMaxTimer = Math.random() * 43;
+		health = 3;
 	}
 	
 	public function get_goreEmitter() :FlxEmitter { return goreEmitter;  } 
@@ -49,15 +50,28 @@ class Enemy extends FlxSprite implements ICollidable
 	
 	public function onCollide(other :FlxObject) :Void
 	{
+		if (health <= 0 && _enableDeathFlicker == false)
+		{
+			solid = false;
+			_enableDeathFlicker = true;
+			acceleration.x = 20;
+			goreEmitter.at(this);
+			goreEmitter.gravity = 100;
+			
+			goreEmitter.start(true, 0);
+			FlxFlicker.flicker(this, _flickerTimerMax);
+		}
 		
-		solid = false;
-		_enableDeathFlicker = true;
-		acceleration.x = 20;
-		goreEmitter.at(this);
-		goreEmitter.gravity = 100;
 		
-		goreEmitter.start(true, 0);
-		FlxFlicker.flicker(this, _flickerTimerMax);
+		if (other == FlxG.player)
+		{
+			if (other.acceleration.x >= 50 && FlxFlicker.isFlickering(this) == false)
+			{
+				health--;
+				
+				FlxFlicker.flicker(this, 0.3);
+			}
+		}
 	}
 	
 	public override function update() :Void
@@ -74,24 +88,25 @@ class Enemy extends FlxSprite implements ICollidable
 			}
 		
 		}
-		acceleration.x = _xMod - FlxG.player.acceleration.x;
+		acceleration.x = _xMod ;
 		y += (Math.sin(_angleCount / Math.PI / 180) * _angleMoveMaxTimer) * FlxG.elapsed;
 		
 		_angleCount += 15;
 			
-	
-		if (x < -width * .25)
+		if (x < FlxG.player.x - FlxG.width)
 		{
+			FlxG.log.add("FOLLOWING X:" + x);
 			kill();
 		}
 		
 		if (forceFollow)
 		{
-			FlxG.log.add("FOLLOWING");
 			var pos :FlxPoint = new FlxPoint(FlxG.player.x, FlxG.player.y);
-			acceleration.x = -150 + (pos.x - x );
-			acceleration.y = (pos.y - y)*2;
-			maxVelocity = new FlxPoint(450, 450);
+			{
+				acceleration.x = (pos.x - x ) * 2;
+				acceleration.y = (pos.y - y)*2;
+				maxVelocity = new FlxPoint(450, 450);
+			}
 		}
 		
 		if (this.y  >= FlxG.height)

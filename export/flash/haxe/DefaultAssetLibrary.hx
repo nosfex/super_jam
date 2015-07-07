@@ -134,6 +134,8 @@ class DefaultAssetLibrary extends AssetLibrary {
 		type.set ("assets/images/ui/analog/thumb.png", AssetType.IMAGE);
 		className.set ("assets/images/ui/button.png", __ASSET__assets_images_ui_button_png);
 		type.set ("assets/images/ui/button.png", AssetType.IMAGE);
+		className.set ("assets/images/ui/countdown_1.png", __ASSET__assets_images_ui_countdown_1_png);
+		type.set ("assets/images/ui/countdown_1.png", AssetType.IMAGE);
 		className.set ("assets/images/ui/cursor.png", __ASSET__assets_images_ui_cursor_png);
 		type.set ("assets/images/ui/cursor.png", AssetType.IMAGE);
 		className.set ("assets/images/ui/fontData11pt.png", __ASSET__assets_images_ui_fontdata11pt_png);
@@ -307,6 +309,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/ui/button.png";
+		path.set (id, id);
+		type.set (id, AssetType.IMAGE);
+		id = "assets/images/ui/countdown_1.png";
 		path.set (id, id);
 		type.set (id, AssetType.IMAGE);
 		id = "assets/images/ui/cursor.png";
@@ -505,6 +510,9 @@ class DefaultAssetLibrary extends AssetLibrary {
 		
 		className.set ("assets/images/ui/button.png", __ASSET__assets_images_ui_button_png);
 		type.set ("assets/images/ui/button.png", AssetType.IMAGE);
+		
+		className.set ("assets/images/ui/countdown_1.png", __ASSET__assets_images_ui_countdown_1_png);
+		type.set ("assets/images/ui/countdown_1.png", AssetType.IMAGE);
 		
 		className.set ("assets/images/ui/cursor.png", __ASSET__assets_images_ui_cursor_png);
 		type.set ("assets/images/ui/cursor.png", AssetType.IMAGE);
@@ -1223,6 +1231,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:keep class __ASSET__assets_images_ui_analog_base_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_ui_analog_thumb_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_ui_button_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
+@:keep class __ASSET__assets_images_ui_countdown_1_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_ui_cursor_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_ui_fontdata11pt_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
 @:keep class __ASSET__assets_images_ui_virtualpad_a_png extends flash.display.BitmapData { public function new () { super (0, 0, true, 0); } }
@@ -1249,6 +1258,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 
 @:keep class __ASSET__assets_fonts_arial_ttf extends flash.text.Font { #if (!openfl_html5_dom) public function new () { super (); fontName = "assets/fonts/arial.ttf"; } #end }
 @:keep class __ASSET__assets_fonts_nokiafc22_ttf extends flash.text.Font { #if (!openfl_html5_dom) public function new () { super (); fontName = "assets/fonts/nokiafc22.ttf"; } #end }
+
 
 
 
@@ -1358,6 +1368,7 @@ class DefaultAssetLibrary extends AssetLibrary {
 @:bitmap("assets/images/ui/analog/base.png") class __ASSET__assets_images_ui_analog_base_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/ui/analog/thumb.png") class __ASSET__assets_images_ui_analog_thumb_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/ui/button.png") class __ASSET__assets_images_ui_button_png extends flash.display.BitmapData {}
+@:bitmap("assets/images/ui/countdown_1.png") class __ASSET__assets_images_ui_countdown_1_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/ui/cursor.png") class __ASSET__assets_images_ui_cursor_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/ui/fontData11pt.png") class __ASSET__assets_images_ui_fontdata11pt_png extends flash.display.BitmapData {}
 @:bitmap("assets/images/ui/virtualpad/a.png") class __ASSET__assets_images_ui_virtualpad_a_png extends flash.display.BitmapData {}

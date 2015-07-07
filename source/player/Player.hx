@@ -13,11 +13,12 @@ import base.ICollidable;
  */
 class Player extends FlxSprite implements ICollidable
 {
-	private var _distance :Float;
+	@:isVar public var distance(default, default) :Float = 0;
 	
-	private var _starPowerMaxTimer :Float = 3;
-	private var _starPowerCurrent  :Float = 0;
+	@:isVar public var starPowerMax(default, default) :Float = 3;
+	@:isVar public var starPowerCurrent(default, default)  :Float = 0;
 	private var _starPowerEnabled :Bool = true;
+	
 	//private var
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:Dynamic) 
 	{
@@ -49,12 +50,17 @@ class Player extends FlxSprite implements ICollidable
 		
 		if (FlxG.keys.pressed.UP)
 		{
-			acceleration.y = -50;
+			
+			if (acceleration.y >= 0)
+				acceleration.y = 0;
+			acceleration.y += -5;
 		}
 		
 		if (FlxG.keys.pressed.DOWN)
 		{
-			acceleration.y = 50;
+			if (acceleration.y <= 0)
+				acceleration.y = 0;
+			acceleration.y += 5;
 		}
 		
 		if (FlxG.keys.anyJustReleased(["DOWN", "UP"]))
@@ -62,27 +68,32 @@ class Player extends FlxSprite implements ICollidable
 			acceleration.y = 0;
 		}
 		
+		if (FlxG.keys.justPressed.X)
+		{
+			if (starPowerCurrent >= 1)
+			{
+				starPowerCurrent --;
+			}
+			dash();
+		}
+		
 		if (FlxG.keys.pressed.RIGHT)
 		{
 			acceleration.x += 1.25;
 		}
-		else
+		if (acceleration.x <= -3)
 		{
-			acceleration.x -= 2.5125;
-			if (acceleration.x <= -3)
-			{
-				acceleration.x = -3; 
-			}
+			acceleration.x = -3; 
 		}
 		
 		if (FlxG.keys.pressed.SPACE)
 		{
-			_starPowerCurrent += FlxG.elapsed;
-			if (_starPowerCurrent >=  _starPowerMaxTimer)
+			starPowerCurrent -= FlxG.elapsed;
+			if (starPowerCurrent < 0)
 			{
 				// GH: no more star power!
 				FlxG.log.add("SHIET");
-				_starPowerCurrent = 0;
+				starPowerCurrent = 0;
 				_starPowerEnabled = false;
 				maxVelocity = new FlxPoint(250, 250);
 			}
@@ -104,22 +115,32 @@ class Player extends FlxSprite implements ICollidable
 		{
 			x = FlxG.width * 0.03;
 		}
-		
-		if (x >= FlxG.width * 0.5)
-		{
-			x = FlxG.width * 0.5;
-		}
-		
-		_distance += velocity.x * FlxG.elapsed;
+			
+		starPowerCurrent += FlxG.elapsed / 10;
+		if (starPowerCurrent > starPowerMax)
+			starPowerCurrent = starPowerMax;
+		distance += velocity.x * FlxG.elapsed;
 	}
 	
-	
+	public function dash() :Void
+	{
+		x += 20;
+		
+	}
 	
 	public function onCollide(other :FlxObject) :Void
 	{
 		if (_starPowerEnabled)
 		{
-		//	other.kill();
+			
+		}
+		else
+		{
+//			if (other.velocity.x > 0)
+			{
+				this.acceleration.x -= 2.5;
+			}
+			
 		}
 	}
 	

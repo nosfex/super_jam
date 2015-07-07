@@ -56,7 +56,7 @@ class BackgroundScroller extends FlxGroup
 			var sprite :FlxSprite = i <= 0 ? new FlxSprite(i, 0, assets[i]) : new FlxSprite(i * temp[i - 1].width, 0, assets[i]);
 			temp.push(sprite);
 			add(sprite);
-			sprite.scrollFactor.set(0, 0);
+		//	sprite.scrollFactor.set(0, 0);
 		}
 		
 		if (bscroller_foreground == scrollerType)
@@ -83,7 +83,7 @@ class BackgroundScroller extends FlxGroup
 
 	override public function update() :Void
 	{
-	//	return;
+		return;
 		
 		var speedX :Float = FlxG.player.velocity.x < 0 ? 0 : FlxG.player.velocity.x ;
 		if(_foregroundContainer.length != 0)
@@ -99,6 +99,7 @@ class BackgroundScroller extends FlxGroup
 			if(_fgScrollX < -((_foregroundContainer.length - 1)  *_fgIncrementalX))
 			{
 				_fgScrollX = 0;
+				
 			}
 		}
 		
