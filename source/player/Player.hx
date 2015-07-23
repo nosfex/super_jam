@@ -17,7 +17,11 @@ class Player extends FlxSprite implements ICollidable
 	
 	@:isVar public var starPowerMax(default, default) :Float = 3;
 	@:isVar public var starPowerCurrent(default, default)  :Float = 0;
-	private var _starPowerEnabled :Bool = true;
+	
+	@:isVar public var starPowerEnabled(default, default) :Bool = true;
+	@:isVar public var usingStarPower(default, default) :Bool = false;
+	
+	var bounceFactor:Float = 5;
 	
 	//private var
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:Dynamic) 
@@ -30,7 +34,7 @@ class Player extends FlxSprite implements ICollidable
 	public function init() :Void
 	{
 		health = 3;
-		maxVelocity = new FlxPoint (250, 250);
+		maxVelocity = new FlxPoint (500, 500);
 		//this.makeGraphic(20, 20);
 		scale = new FlxPoint(3, 3);		
 	}
@@ -39,6 +43,7 @@ class Player extends FlxSprite implements ICollidable
 	{
 		super.update();
 		
+		usingStarPower = false;
 		if (this.y  >= FlxG.height)
 		{        
 			this.y = FlxG.height;
@@ -88,27 +93,28 @@ class Player extends FlxSprite implements ICollidable
 		
 		if (FlxG.keys.pressed.SPACE)
 		{
-			starPowerCurrent -= FlxG.elapsed;
+			starPowerCurrent -= FlxG.elapsed * 3;
 			if (starPowerCurrent < 0)
 			{
 				// GH: no more star power!
 				FlxG.log.add("SHIET");
 				starPowerCurrent = 0;
-				_starPowerEnabled = false;
-				maxVelocity = new FlxPoint(250, 250);
+				starPowerEnabled = false;
+				maxVelocity = new FlxPoint(500, 500);
 			}
 			
-			if (_starPowerEnabled)
+			if (starPowerEnabled)
 			{
-				maxVelocity = new FlxPoint(600, 250);
+				maxVelocity = new FlxPoint(700, 700);
 				// GH: running with the devil
-				velocity.x = 600;
-				
+				velocity.x = 600;	
+				usingStarPower = true;
 			}
+			
 		}
 		else
 		{
-			maxVelocity = new FlxPoint(250, 250);
+			maxVelocity = new FlxPoint(500, 500);
 		}
 		
 		if (x <= FlxG.width * 0.03)
@@ -125,22 +131,17 @@ class Player extends FlxSprite implements ICollidable
 	public function dash() :Void
 	{
 		x += 20;
-		
 	}
 	
 	public function onCollide(other :FlxObject) :Void
 	{
-		if (_starPowerEnabled)
+		if (usingStarPower)
 		{
 			
 		}
 		else
 		{
-//			if (other.velocity.x > 0)
-			{
-				this.acceleration.x -= 2.5;
-			}
-			
+			this.velocity.x *= 0.75;		
 		}
 	}
 	

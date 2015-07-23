@@ -24,7 +24,14 @@ class Enemy extends FlxSprite implements ICollidable
 	private var _angleMoveMaxTimer : Float = 0;
 	private var _angleMoveTimer :Float = 0;
 	private var _xMod :Float;
-	
+	var _bounceFactor : Float = 5;
+	var _enemyPoint:FlxPoint = new FlxPoint();
+	var _accelFactor:Float = 0.75;
+
+	var _followVelocity : FlxPoint = new FlxPoint(650, 650);
+	var _keepUpVelocity : FlxPoint = new FlxPoint(750, 750);
+	var floorHeight :Float = 0.9;
+	var ceilHeight : Float = 0.65;
 	
 	@:isVar public var forceFollow(default, default) :Bool = false;
 	
@@ -32,7 +39,7 @@ class Enemy extends FlxSprite implements ICollidable
 	{
 		super(X, Y, SimpleGraphic);			
 		scale = new FlxPoint(3, 3);
-		maxVelocity = new FlxPoint(150, 150);
+		maxVelocity = _followVelocity;
 		
 		
 		_xMod = Math.random() * 100 + 50;
@@ -65,18 +72,35 @@ class Enemy extends FlxSprite implements ICollidable
 		
 		if (other == FlxG.player)
 		{
-			if (other.acceleration.x >= 50 && FlxFlicker.isFlickering(this) == false)
+			if (other.acceleration.x >= 100 && FlxFlicker.isFlickering(this) == false)
 			{
-				health--;
-				
-				FlxFlicker.flicker(this, 0.3);
+				if (FlxG.player.usingStarPower)
+				{
+					health--;
+					FlxFlicker.flicker(this, 0.3);
+				}	
+			}
+			
+			if (acceleration.x > 0 )
+			{
+				this.x -= _bounceFactor;
+			}
+			else
+			{
+				this.x += _bounceFactor;
 			}
 		}
+		else
+		{
+			this.x += _bounceFactor;
+		}
+
 	}
 	
 	public override function update() :Void
 	{
 		super.update();
+		var pos :FlxPoint = new FlxPoint(FlxG.player.x, FlxG.player.y);
 		if (_enableDeathFlicker)
 		{
 			_flickerTimer += FlxG.elapsed;
@@ -88,34 +112,48 @@ class Enemy extends FlxSprite implements ICollidable
 			}
 		
 		}
-		acceleration.x = _xMod ;
+		acceleration.x = _xMod;
 		y += (Math.sin(_angleCount / Math.PI / 180) * _angleMoveMaxTimer) * FlxG.elapsed;
 		
 		_angleCount += 15;
 			
 		if (x < FlxG.player.x - FlxG.width)
 		{
-			FlxG.log.add("FOLLOWING X:" + x);
+			FlxG.log.add("KILL ME @X: " + x);
 			kill();
+		}
+		
+		if (FlxG.player.x  < x - FlxG.width * 0.5)
+		{
+			// GH: Slow me down baby
+			FlxG.log.add("SLOW ME DOWN");
+			acceleration.x = 0.5;
 		}
 		
 		if (forceFollow)
 		{
-			var pos :FlxPoint = new FlxPoint(FlxG.player.x, FlxG.player.y);
-			{
-				acceleration.x = (pos.x - x ) * 2;
-				acceleration.y = (pos.y - y)*2;
-				maxVelocity = new FlxPoint(450, 450);
-			}
+			FlxG.log.add("Force Follow");
+			this.x = (FlxG.playerPos.x - x ) * _accelFactor;
+			this.y = (FlxG.playerPos.y - y) * _accelFactor;
+			maxVelocity = _followVelocity;
 		}
 		
-		if (this.y  >= FlxG.height)
+		_enemyPoint.x = x; _enemyPoint.y = y;
+		
+		if (/*enemyPoint.distanceTo(FlxG.playerPos) > FlxG.width * 0.4 && */FlxG.player.x > x)
+		{
+			FlxG.log.add("KEEP UP");
+			maxVelocity = _keepUpVelocity;
+			forceFollow = false;
+		}
+		
+		if (this.y  >= FlxG.height *floorHeight)
 		{        
-			this.y = FlxG.height;
+			this.y = FlxG.height * floorHeight;
 		}        
-		if (this.y <= FlxG.height * 0.65)
+		if (this.y <= FlxG.height * ceilHeight)
 		{        
-			this.y = FlxG.height * 0.65;
+			this.y = FlxG.height * ceilHeight;
 		}
 		
 	}

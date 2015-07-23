@@ -91,7 +91,7 @@ class PlayState extends FlxState
 		
 		FlxG.camera.follow(_player, FlxCamera.STYLE_PLATFORMER, 1);
 		
-		
+		FlxG.playerPos = new FlxPoint(_player.x , _player.y);
 		super.create();
 	}
 	
@@ -110,10 +110,8 @@ class PlayState extends FlxState
 	override public function update():Void
 	{
 		super.update();
-		
+		FlxG.playerPos = new FlxPoint(_player.x , _player.y);
 		FlxG.collide(_enemyController, _player, onCollide);
-		
-		FlxG.collide(_enemyController, _enemyController, onCollide);
 		
 		_starPowerBar.scale.x = _player.starPowerCurrent / _player.starPowerMax;
 		_healthBar.scale.x = _player.health / 3;
@@ -139,6 +137,8 @@ class PlayState extends FlxState
 			_clockStage = 0;
 			_jamTimer = 60;
 		}
+		
+		
 		
 	}	
 	

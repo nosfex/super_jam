@@ -58,19 +58,23 @@ class EnemyController extends FlxGroup
 						m.forceFollow = false;
 					}
 					remove(members[i], true);
+					
+					spawnEnemy(FlxG.player.x + (FlxG.width / 3) * 1.2,  FlxG.height * .65 );
 				}
 				
-				if (_currentChaserCount < 3 )
+				if (FlxMath.distanceBetween(m, FlxG.player) < FlxG.width * .35)
 				{
-					if (FlxMath.distanceBetween(m, FlxG.player) < 250)
+					
+					if (FlxG.player.x < m.x)
 					{
 						if (m.forceFollow == false)
 						{
 							m.forceFollow = true;
 							_currentChaserCount++;
 						}	
-					}	
-				}
+					}
+				}	
+			
 			}
 		}	
 		
@@ -78,12 +82,7 @@ class EnemyController extends FlxGroup
 		{
 			_currentChaserCount = 0;
 			spawnFormation(v_formation);
-		}
-		
-		
-		//while()
-		
-		
+		}	
 	}
 	
 	public function spawnFormation(formation : Int) :Void
@@ -95,7 +94,7 @@ class EnemyController extends FlxGroup
 				for (i in 0 ... 4)
 				{			
 					var xMod :Float = Math.max( Math.min((i % 3), 0.05), 0);
-					spawnEnemy(FlxG.player.x + (FlxG.width/4) * (1.2 + xMod), FlxG.height * (.65 + i * .08));
+					spawnEnemy(FlxG.player.x + (FlxG.width/3) * (1.2 + xMod), FlxG.height * (.65 + i * .08));
 				}
 			
 		}
