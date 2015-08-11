@@ -13,8 +13,13 @@ import flixel.util.FlxMath;
 class MenuState extends FlxState
 {
 	
-	private var introText : FlxText ;
-	private var playBtn : FlxButton ;
+	private var _playBtn : FlxButton ;
+	
+	private var _bkg : FlxSprite;
+	private var _flag :FlxSprite;
+	private var _logo :FlxSprite;
+	private var _title :FlxSprite;
+	private var _logoCounter :Float = 0;
 	/**
 	 * Function that is called up when to state is created to set it up. 
 	 */
@@ -22,15 +27,35 @@ class MenuState extends FlxState
 	{
 		super.create();
 		
-		introText = new FlxText(FlxG.width  *0.5, FlxG.height * 0.2, 100, "SUPER JAM", 12);
-		introText.x -= introText.width * 0.5;
-		add(introText);
+		_bkg = new FlxSprite(0, 0, AssetPaths.bkg_title_screen__png);
+		add(_bkg);
 		
-		playBtn = new FlxButton(FlxG.width * 0.5, FlxG.height * 0.5, onPlay);
-		playBtn.x -= playBtn.width * 0.5;
-		add(playBtn);
+		_flag = new FlxSprite(0, 0, AssetPaths.flag__png);
+		add(_flag);
+		
+		_logo = new FlxSprite(FlxG.width * 0.5, FlxG.height * .5, AssetPaths.logo_frames__png);
+		
+		_logo.loadGraphic(AssetPaths.logo_frames__png, true, 411, 365, true);
+		_logo.setPosition(FlxG.width * 0.5 - _logo.frameWidth * .5, FlxG.height * .5 - _logo.frameHeight * .5);
+		_logo.animation.add("play", [0, 1, 2, 3], 6, true);
+		_logo.animation.play("play");
+		add(_logo);
+		
+		
+		
+		_title = new FlxSprite(FlxG.width  *0.5, FlxG.height * 0.1, AssetPaths.title_correct__png);
+		_title.x -= _title.width * 0.5;
+		add(_title);
+		
+		_playBtn = new FlxButton(FlxG.width * 0.5, FlxG.height * 0.8, onPlay);
+		_playBtn.x -= _playBtn.width * 0.5;
+		_playBtn.text = "JUGAR";
+		add(_playBtn);
+		
+		
+		_title.visible 		= false;
+		_playBtn.visible 	= false;
 	}
-	
 	
 	/**
 	 * 
@@ -39,7 +64,7 @@ class MenuState extends FlxState
 	
 	private function onPlay() : Void
 	{
-		FlxG.switchState(new IntroState());
+		FlxG.switchState(new PlayState());	
 	}
 	/**
 	 * Function that is called when this state is destroyed - you might want to 
@@ -56,5 +81,15 @@ class MenuState extends FlxState
 	override public function update():Void
 	{
 		super.update();
+		
+		if (_logoCounter >= 3)
+		{
+			_logo.visible 		= false;
+			_flag.visible		= false;
+			_title.visible 		= true;
+			_playBtn.visible 	= true;
+		}
+		
+		_logoCounter += FlxG.elapsed;
 	}	
 }

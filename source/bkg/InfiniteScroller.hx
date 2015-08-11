@@ -1,5 +1,4 @@
 package bkg;
-
 import flixel.FlxObject;
 import flixel.group.FlxGroup;
 import flixel.FlxSprite;

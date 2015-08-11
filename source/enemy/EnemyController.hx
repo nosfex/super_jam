@@ -33,7 +33,18 @@ class EnemyController extends FlxGroup
 			FlxG.log.add("WRONG");
 		}
 			
-		e = new Enemy(x, y, AssetPaths.left_chainsaw_mod__png);
+		var d :Dynamic = null ;
+		var rnd : Int = Math.floor(Math.random() * 3) + 1;
+		switch(rnd)
+		{
+			case 1:
+				d = AssetPaths.enemy_1__png;
+			case 2:
+				d = AssetPaths.enemy_2__png;
+			case 3:
+				d = AssetPaths.enemy_3__png;
+		}
+		e = new Enemy(x, y, d);
 		add(e);
 		
 		particleGroup.add(e.goreEmitter);
@@ -94,7 +105,7 @@ class EnemyController extends FlxGroup
 				for (i in 0 ... 4)
 				{			
 					var xMod :Float = Math.max( Math.min((i % 3), 0.05), 0);
-					spawnEnemy(FlxG.player.x + (FlxG.width/3) * (1.2 + xMod), FlxG.height * (.65 + i * .08));
+					spawnEnemy(FlxG.player.x + (FlxG.width/3) * (1.2 + xMod), FlxG.height * (.65 + i * .03));
 				}
 			
 		}

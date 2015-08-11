@@ -27,7 +27,10 @@ class Player extends FlxSprite implements ICollidable
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:Dynamic) 
 	{
 		super(X, Y, SimpleGraphic);	
-		
+		loadGraphic(SimpleGraphic,  true, 50, 50);
+		animation.add("run", [0, 1, 2, 3, 4, 5], 12, true);
+		animation.add("run_faster", [0, 1, 2, 3, 4], 30, true);
+		animation.add("die", [6, 7, 8, 9], 24, false);
 		init();
 	}
 	
@@ -37,35 +40,36 @@ class Player extends FlxSprite implements ICollidable
 		maxVelocity = new FlxPoint (500, 500);
 		//this.makeGraphic(20, 20);
 		scale = new FlxPoint(3, 3);		
+		animation.play("run");
 	}
 
 	override public function update() :Void
 	{
-		super.update();
+		if (FlxG.uiPause) return;
 		
-		usingStarPower = false;
-		if (this.y  >= FlxG.height)
-		{        
-			this.y = FlxG.height;
-		}        
-		if (this.y <= FlxG.height * 0.65)
-		{        
-			this.y = FlxG.height * 0.65;
+		super.update();
+		if (FlxG.pauseEntities) 
+		{
+			velocity.set(0, 0);
+			acceleration.set(0, 0);
+			return;
 		}
+		usingStarPower = false;
+		this.y = FlxG.checkBounds(FlxG.height * 0.73, FlxG.height * 0.38, this.y);
 		
 		if (FlxG.keys.pressed.UP)
 		{
 			
 			if (acceleration.y >= 0)
-				acceleration.y = 0;
-			acceleration.y += -5;
+				acceleration.y *= -1;
+			acceleration.y += -15;
 		}
 		
 		if (FlxG.keys.pressed.DOWN)
 		{
 			if (acceleration.y <= 0)
-				acceleration.y = 0;
-			acceleration.y += 5;
+				acceleration.y *= -1;
+			acceleration.y += 15;
 		}
 		
 		if (FlxG.keys.anyJustReleased(["DOWN", "UP"]))
@@ -79,7 +83,7 @@ class Player extends FlxSprite implements ICollidable
 			{
 				starPowerCurrent --;
 			}
-			dash();
+			//dash();
 		}
 		
 		if (FlxG.keys.pressed.RIGHT)
@@ -102,6 +106,10 @@ class Player extends FlxSprite implements ICollidable
 				starPowerEnabled = false;
 				maxVelocity = new FlxPoint(500, 500);
 			}
+			else
+			{
+				starPowerEnabled = true;
+			}
 			
 			if (starPowerEnabled)
 			{
@@ -121,11 +129,32 @@ class Player extends FlxSprite implements ICollidable
 		{
 			x = FlxG.width * 0.03;
 		}
-			
+		
+		if (velocity.x > maxVelocity.x)
+		{
+			if(animation.name == "run")
+				animation.play("run_faster");
+		}
+		else
+		{	
+			if(animation.name == "run_faster")
+				animation.play("run");
+		}
+		
+		
+		
 		starPowerCurrent += FlxG.elapsed / 10;
 		if (starPowerCurrent > starPowerMax)
 			starPowerCurrent = starPowerMax;
 		distance += velocity.x * FlxG.elapsed;
+	}
+	
+	public function drainLife() :Void
+	{
+		if (usingStarPower)
+			return;
+			
+		health -= .01;
 	}
 	
 	public function dash() :Void

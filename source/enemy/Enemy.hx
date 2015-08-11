@@ -15,41 +15,45 @@ import flixel.effects.FlxFlicker;
 class Enemy extends FlxSprite implements ICollidable
 {
 
-	private var _enableDeathFlicker :Bool = false;
-	private var _flickerTimer :Float = 0;
-	private var _flickerTimerMax :Float = 2;
 	@:isVar public var goreEmitter(default, default):FlxEmitter;
 	private var _goreParticle :FlxParticle;
-	private var _angleCount : Float = 0;
-	private var _angleMoveMaxTimer : Float = 0;
-	private var _angleMoveTimer :Float = 0;
 	private var _xMod :Float;
-	var _bounceFactor : Float = 5;
-	var _enemyPoint:FlxPoint = new FlxPoint();
-	var _accelFactor:Float = 0.75;
-
-	var _followVelocity : FlxPoint = new FlxPoint(650, 650);
-	var _keepUpVelocity : FlxPoint = new FlxPoint(750, 750);
-	var floorHeight :Float = 0.9;
-	var ceilHeight : Float = 0.65;
-	
 	@:isVar public var forceFollow(default, default) :Bool = false;
+	
+	private var _enableDeathFlicker :Bool 	= false;
+	private var _flickerTimer :Float 		= 0;
+	private var _flickerTimerMax :Float 	= 2;
+	private var _angleCount : Float 		= 0;
+	private var _angleMoveMaxTimer : Float 	= 0;
+	private var _angleMoveTimer :Float 		= 0;
+	var _bounceFactor : Float 				= 5;
+	var _enemyPoint:FlxPoint 				= new FlxPoint();
+	var _accelFactor:Float 					= 1.45;
+	var _followVelocity : FlxPoint 			= new FlxPoint(750, 750);
+	var _keepUpVelocity : FlxPoint 			= new FlxPoint(850, 850);
+	var floorHeight :Float 					= FlxG.height * 0.73;
+	var ceilHeight : Float 					=  FlxG.height * 0.38;
+	var forcePush :Float 					= 0;
 	
 	public function new(X:Float=0, Y:Float=0, ?SimpleGraphic:Dynamic) 
 	{
-		super(X, Y, SimpleGraphic);			
+		super(X, Y, SimpleGraphic);		
+		loadGraphic(SimpleGraphic, true, cast(width / 2), cast(height), false);
+		animation.add("run", [0, 1], 5, true);
+		setFacingFlip(FlxObject.LEFT, true, false);
+		setFacingFlip(FlxObject.RIGHT, false, false);
+		
 		scale = new FlxPoint(3, 3);
 		maxVelocity = _followVelocity;
-		
 		
 		_xMod = Math.random() * 100 + 50;
 		
 		goreEmitter = new FlxEmitter();
-		
 		goreEmitter.makeParticles(AssetPaths.p_gore_0__png, 15, 16, true);
 		
 		_angleMoveMaxTimer = Math.random() * 43;
 		health = 3;
+		animation.play("run");
 	}
 	
 	public function get_goreEmitter() :FlxEmitter { return goreEmitter;  } 
@@ -64,41 +68,47 @@ class Enemy extends FlxSprite implements ICollidable
 			acceleration.x = 20;
 			goreEmitter.at(this);
 			goreEmitter.gravity = 100;
-			
+			FlxG.score += 400;
 			goreEmitter.start(true, 0);
 			FlxFlicker.flicker(this, _flickerTimerMax);
 		}
 		
-		
 		if (other == FlxG.player)
 		{
-			if (other.acceleration.x >= 100 && FlxFlicker.isFlickering(this) == false)
+//			if (other.acceleration.x >= 100 && FlxFlicker.isFlickering(this) == false)
 			{
 				if (FlxG.player.usingStarPower)
 				{
+					if (acceleration.x > 0 )
+					{
+						forcePush -= _bounceFactor * 25;
+					}
+					else
+					{
+						forcePush += _bounceFactor * 25;
+					}
 					health--;
 					FlxFlicker.flicker(this, 0.3);
 				}	
+				
+			
 			}
 			
-			if (acceleration.x > 0 )
-			{
-				this.x -= _bounceFactor;
-			}
-			else
-			{
-				this.x += _bounceFactor;
-			}
+			FlxG.player.drainLife();
+			
+		
 		}
 		else
 		{
-			this.x += _bounceFactor;
+		//	this.x += _bounceFactor;
 		}
 
 	}
 	
 	public override function update() :Void
 	{
+		if (FlxG.uiPause) return;
+		if (FlxG.pauseEntities) return;
 		super.update();
 		var pos :FlxPoint = new FlxPoint(FlxG.player.x, FlxG.player.y);
 		if (_enableDeathFlicker)
@@ -133,29 +143,43 @@ class Enemy extends FlxSprite implements ICollidable
 		if (forceFollow)
 		{
 			FlxG.log.add("Force Follow");
-			this.x = (FlxG.playerPos.x - x ) * _accelFactor;
-			this.y = (FlxG.playerPos.y - y) * _accelFactor;
+			
+			var xFollow : Float = (FlxG.playerPos.x - x ) * _accelFactor;
+			var yFollow : Float = (FlxG.playerPos.y - y) * _accelFactor;
+			
+			xFollow = FlxG.invertMinMax(FlxG.player.x, x, xFollow);
+			yFollow = FlxG.invertMinMax(FlxG.player.y, y, yFollow);
+			
+			acceleration = new FlxPoint(xFollow, yFollow);
+			
 			maxVelocity = _followVelocity;
 		}
 		
-		_enemyPoint.x = x; _enemyPoint.y = y;
+		_enemyPoint = new FlxPoint(x, y);
 		
 		if (/*enemyPoint.distanceTo(FlxG.playerPos) > FlxG.width * 0.4 && */FlxG.player.x > x)
 		{
 			FlxG.log.add("KEEP UP");
 			maxVelocity = _keepUpVelocity;
 			forceFollow = false;
+			
+			if (Math.abs(FlxG.player.x - x ) > 10)
+			{
+				FlxG.score++;
+			}
 		}
 		
-		if (this.y  >= FlxG.height *floorHeight)
-		{        
-			this.y = FlxG.height * floorHeight;
-		}        
-		if (this.y <= FlxG.height * ceilHeight)
-		{        
-			this.y = FlxG.height * ceilHeight;
+		if (forcePush != 0)
+		{
+			this.x += forcePush;
+			forcePush -= forcePush * .9;
 		}
 		
+		if (acceleration.x < 0)
+			facing = FlxObject.LEFT;
+		else
+			facing = FlxObject.RIGHT;
+		this.y = FlxG.checkBounds(floorHeight, ceilHeight, this.y);
 	}
 	
 }
